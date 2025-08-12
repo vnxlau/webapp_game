@@ -1,4 +1,4 @@
-// Simple Asset Creator - Creates basic placeholder images as data URLs
+// Advanced Asset Creator - Creates detailed pixel-art style sprites
 
 class SimpleAssetCreator {
     constructor() {
@@ -6,48 +6,232 @@ class SimpleAssetCreator {
         this.canvas.width = 64;
         this.canvas.height = 64;
         this.ctx = this.canvas.getContext('2d');
+        
+        // Disable anti-aliasing for pixel-perfect sprites
+        this.ctx.imageSmoothingEnabled = false;
     }
 
     createCreatureSprite(name, elementType) {
         this.ctx.clearRect(0, 0, 64, 64);
         
+        switch(name.toLowerCase()) {
+            case 'kitsune':
+                return this.drawKitsune(elementType);
+            case 'tanuki':
+                return this.drawTanuki(elementType);
+            case 'kodama':
+                return this.drawKodama(elementType);
+            case 'neko':
+                return this.drawNeko(elementType);
+            case 'karasu':
+                return this.drawKarasu(elementType);
+            case 'ryu':
+                return this.drawRyu(elementType);
+            case 'oni':
+                return this.drawOni(elementType);
+            case 'yuki-onna':
+                return this.drawYukiOnna(elementType);
+            case 'phoenix':
+                return this.drawPhoenix(elementType);
+            case 'leviathan':
+                return this.drawLeviathan(elementType);
+            case 'raiju':
+                return this.drawRaiju(elementType);
+            case 'tengu':
+                return this.drawTengu(elementType);
+            case 'bakeneko':
+                return this.drawBakeneko(elementType);
+            case 'shiranui':
+                return this.drawShiranui(elementType);
+            case 'yukiko':
+                return this.drawYukiko(elementType);
+            case 'hinata':
+                return this.drawHinata(elementType);
+            case 'akira':
+                return this.drawAkira(elementType);
+            case 'mizuki':
+                return this.drawMizuki(elementType);
+            case 'hayato':
+                return this.drawHayato(elementType);
+            case 'sakura':
+                return this.drawSakura(elementType);
+            case 'takeshi':
+                return this.drawTakeshi(elementType);
+            case 'yuki':
+                return this.drawYuki(elementType);
+            default:
+                return this.drawGenericCreature(elementType);
+        }
+    }
+
+    drawKitsune(elementType) {
         const colors = this.getElementColors(elementType);
-        const centerX = 32;
-        const centerY = 36;
         
-        // Body
-        this.ctx.fillStyle = colors.primary;
-        this.ctx.beginPath();
-        this.ctx.ellipse(centerX, centerY, 18, 22, 0, 0, Math.PI * 2);
-        this.ctx.fill();
-        
-        // Belly
-        this.ctx.fillStyle = colors.secondary;
-        this.ctx.beginPath();
-        this.ctx.ellipse(centerX, centerY + 5, 12, 15, 0, 0, Math.PI * 2);
-        this.ctx.fill();
+        // Body (fox-like)
+        this.drawPixelRect(24, 40, 16, 20, colors.primary);
         
         // Head
-        this.ctx.fillStyle = colors.primary;
-        this.ctx.beginPath();
-        this.ctx.arc(centerX, 20, 15, 0, Math.PI * 2);
-        this.ctx.fill();
+        this.drawPixelRect(22, 20, 20, 16, colors.primary);
         
-        // Eyes
-        this.ctx.fillStyle = '#000000';
-        this.ctx.beginPath();
-        this.ctx.arc(centerX - 5, 18, 3, 0, Math.PI * 2);
-        this.ctx.fill();
-        this.ctx.beginPath();
-        this.ctx.arc(centerX + 5, 18, 3, 0, Math.PI * 2);
-        this.ctx.fill();
+        // Ears (pointy fox ears)
+        this.drawPixelRect(20, 12, 6, 12, colors.primary);
+        this.drawPixelRect(38, 12, 6, 12, colors.primary);
+        this.drawPixelRect(22, 14, 2, 8, colors.secondary);
+        this.drawPixelRect(40, 14, 2, 8, colors.secondary);
         
-        // Eye highlights
-        this.ctx.fillStyle = '#FFFFFF';
-        this.ctx.beginPath();
-        this.ctx.arc(centerX - 4, 17, 1, 0, Math.PI * 2);
-        this.ctx.fill();
-        this.ctx.beginPath();
+        // Multiple tails
+        this.drawPixelRect(12, 44, 8, 16, colors.primary);
+        this.drawPixelRect(44, 44, 8, 16, colors.primary);
+        this.drawPixelRect(28, 48, 8, 12, colors.primary);
+        
+        // Tail tips (white/secondary color)
+        this.drawPixelRect(14, 56, 4, 4, colors.secondary);
+        this.drawPixelRect(46, 56, 4, 4, colors.secondary);
+        this.drawPixelRect(30, 56, 4, 4, colors.secondary);
+        
+        // Face markings
+        this.drawPixelRect(26, 32, 12, 4, colors.secondary);
+        
+        // Eyes (fox-like)
+        this.drawPixelRect(26, 24, 2, 4, '#000000');
+        this.drawPixelRect(36, 24, 2, 4, '#000000');
+        this.drawPixelRect(26, 24, 1, 2, '#FF6B6B');
+        this.drawPixelRect(36, 24, 1, 2, '#FF6B6B');
+        
+        // Nose
+        this.drawPixelRect(31, 30, 2, 2, '#000000');
+        
+        // Legs
+        this.drawPixelRect(26, 56, 4, 6, colors.primary);
+        this.drawPixelRect(34, 56, 4, 6, colors.primary);
+        
+        return this.canvas.toDataURL();
+    }
+
+    drawTanuki(elementType) {
+        const colors = this.getElementColors(elementType);
+        
+        // Round body
+        this.drawPixelEllipse(32, 44, 18, 16, colors.primary);
+        
+        // Head
+        this.drawPixelEllipse(32, 24, 16, 14, colors.primary);
+        
+        // Belly marking
+        this.drawPixelEllipse(32, 48, 12, 10, colors.secondary);
+        
+        // Face mask (dark around eyes)
+        this.drawPixelRect(20, 18, 24, 8, '#4A4A4A');
+        this.drawPixelRect(24, 16, 16, 4, '#4A4A4A');
+        
+        // Eyes (large and round)
+        this.drawPixelRect(26, 20, 4, 4, '#FFFFFF');
+        this.drawPixelRect(34, 20, 4, 4, '#FFFFFF');
+        this.drawPixelRect(27, 21, 2, 2, '#000000');
+        this.drawPixelRect(35, 21, 2, 2, '#000000');
+        
+        // Ears
+        this.drawPixelRect(22, 12, 6, 8, colors.primary);
+        this.drawPixelRect(36, 12, 6, 8, colors.primary);
+        this.drawPixelRect(24, 14, 2, 4, '#FFB6C1');
+        this.drawPixelRect(38, 14, 2, 4, '#FFB6C1');
+        
+        // Nose
+        this.drawPixelRect(31, 26, 2, 2, '#000000');
+        
+        // Tail (striped)
+        this.drawPixelRect(48, 36, 12, 20, colors.primary);
+        this.drawPixelRect(50, 38, 8, 2, '#4A4A4A');
+        this.drawPixelRect(50, 42, 8, 2, '#4A4A4A');
+        this.drawPixelRect(50, 46, 8, 2, '#4A4A4A');
+        this.drawPixelRect(50, 50, 8, 2, '#4A4A4A');
+        
+        // Paws
+        this.drawPixelRect(24, 58, 4, 4, colors.primary);
+        this.drawPixelRect(36, 58, 4, 4, colors.primary);
+        
+        return this.canvas.toDataURL();
+    }
+
+    drawKodama(elementType) {
+        const colors = { primary: '#E8F5E8', secondary: '#C8E6C9', accent: '#81C784' };
+        
+        // Tree-spirit body (white/pale green)
+        this.drawPixelEllipse(32, 40, 14, 20, colors.primary);
+        
+        // Head (larger, rounded)
+        this.drawPixelEllipse(32, 22, 18, 16, colors.primary);
+        
+        // Simple dot eyes
+        this.drawPixelRect(26, 20, 2, 2, '#000000');
+        this.drawPixelRect(36, 20, 2, 2, '#000000');
+        
+        // Small mouth
+        this.drawPixelRect(31, 26, 2, 1, '#000000');
+        
+        // Wooden texture lines
+        this.drawPixelRect(20, 24, 24, 1, colors.secondary);
+        this.drawPixelRect(22, 32, 20, 1, colors.secondary);
+        this.drawPixelRect(24, 44, 16, 1, colors.secondary);
+        
+        // Small branch-like arms
+        this.drawPixelRect(18, 32, 6, 2, colors.accent);
+        this.drawPixelRect(40, 32, 6, 2, colors.accent);
+        
+        // Root-like base
+        this.drawPixelRect(28, 58, 8, 4, colors.accent);
+        this.drawPixelRect(24, 60, 4, 2, colors.accent);
+        this.drawPixelRect(36, 60, 4, 2, colors.accent);
+        
+        return this.canvas.toDataURL();
+    }
+
+    drawNeko(elementType) {
+        const colors = this.getElementColors(elementType);
+        
+        // Cat body
+        this.drawPixelEllipse(32, 44, 16, 18, colors.primary);
+        
+        // Head
+        this.drawPixelEllipse(32, 24, 14, 12, colors.primary);
+        
+        // Cat ears (triangular)
+        this.drawPixelRect(24, 12, 4, 8, colors.primary);
+        this.drawPixelRect(36, 12, 4, 8, colors.primary);
+        this.drawPixelRect(25, 14, 2, 4, '#FFB6C1');
+        this.drawPixelRect(37, 14, 2, 4, '#FFB6C1');
+        
+        // Stripes (if not solid color)
+        if (elementType !== 'normal') {
+            this.drawPixelRect(28, 38, 8, 2, colors.secondary);
+            this.drawPixelRect(28, 46, 8, 2, colors.secondary);
+            this.drawPixelRect(28, 54, 8, 2, colors.secondary);
+        }
+        
+        // Eyes (cat-like, almond shaped)
+        this.drawPixelRect(26, 20, 3, 4, '#4CAF50');
+        this.drawPixelRect(35, 20, 3, 4, '#4CAF50');
+        this.drawPixelRect(27, 21, 1, 2, '#000000');
+        this.drawPixelRect(36, 21, 1, 2, '#000000');
+        
+        // Nose (small triangle)
+        this.drawPixelRect(31, 26, 2, 1, '#FFB6C1');
+        this.drawPixelRect(31, 27, 2, 1, '#FFB6C1');
+        
+        // Whiskers
+        this.drawPixelRect(20, 26, 6, 1, '#000000');
+        this.drawPixelRect(38, 26, 6, 1, '#000000');
+        
+        // Tail (curved)
+        this.drawPixelRect(48, 30, 4, 16, colors.primary);
+        this.drawPixelRect(50, 26, 4, 8, colors.primary);
+        this.drawPixelRect(48, 22, 4, 8, colors.primary);
+        
+        // Paws
+        this.drawPixelRect(26, 58, 4, 4, colors.primary);
+        this.drawPixelRect(34, 58, 4, 4, colors.primary);
+        
+        return this.canvas.toDataURL();
         this.ctx.arc(centerX + 6, 17, 1, 0, Math.PI * 2);
         this.ctx.fill();
         
