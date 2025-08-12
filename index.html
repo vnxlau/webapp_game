@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon World Explorer</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Game HUD -->
+        <div id="hud">
+            <div id="player-stats">
+                <h3 id="player-name">Trainer</h3>
+                <div class="stat-bar">
+                    <label>Level: <span id="player-level">1</span></label>
+                    <label>EXP: <span id="player-exp">0</span>/<span id="player-exp-next">150</span></label>
+                </div>
+            </div>
+            
+            <div id="world-info">
+                <div class="location-info">
+                    <span id="current-biome">Forest</span>
+                    <span id="coordinates">(0, 0)</span>
+                </div>
+            </div>
+            
+            <div id="creature-team">
+                <h4>Active Team</h4>
+                <div id="team-display"></div>
+            </div>
+        </div>
+
+        <!-- Main Game Canvas -->
+        <canvas id="game-canvas" width="800" height="600"></canvas>
+        
+        <!-- Game Controls -->
+        <div id="controls">
+            <div id="movement-controls">
+                <button id="move-up">↑</button>
+                <div>
+                    <button id="move-left">←</button>
+                    <button id="move-down">↓</button>
+                    <button id="move-right">→</button>
+                </div>
+            </div>
+            
+            <div id="action-controls">
+                <button id="btn-explore">Explore</button>
+                <button id="btn-collection">Collection</button>
+                <button id="btn-map">Map</button>
+                <button id="btn-settings">Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Battle Modal -->
+    <div id="battle-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Wild Creature Encounter!</h2>
+            <div id="battle-scene">
+                <div class="creature-display">
+                    <div id="opponent-creature">
+                        <h3 id="opponent-name">Wild Creature</h3>
+                        <div class="creature-stats">
+                            <div class="health-bar">
+                                <div id="opponent-health"></div>
+                            </div>
+                            <span id="opponent-level">Lv.?</span>
+                        </div>
+                    </div>
+                    
+                    <div id="player-creature">
+                        <h3 id="active-creature-name">Your Creature</h3>
+                        <div class="creature-stats">
+                            <div class="health-bar">
+                                <div id="player-health"></div>
+                            </div>
+                            <span id="active-creature-level">Lv.?</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="battle-actions">
+                    <button id="btn-attack">Attack</button>
+                    <button id="btn-capture">Capture</button>
+                    <button id="btn-switch">Switch</button>
+                    <button id="btn-run">Run</button>
+                </div>
+            </div>
+            
+            <div id="battle-log"></div>
+        </div>
+    </div>
+
+    <!-- Collection Modal -->
+    <div id="collection-modal" class="modal hidden">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <h2>Creature Collection</h2>
+            <div id="collection-stats">
+                <p>Collector Level: <span id="collector-level">Novice</span></p>
+                <p>Total Captured: <span id="total-captured">0</span></p>
+                <p>Unique Species: <span id="unique-species">0</span></p>
+            </div>
+            <div id="creature-grid"></div>
+        </div>
+    </div>
+
+    <!-- Map Modal -->
+    <div id="map-modal" class="modal hidden">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <h2>World Map</h2>
+            <canvas id="world-map" width="400" height="300"></canvas>
+            <div id="map-legend">
+                <div class="legend-item"><span class="biome-color forest"></span> Forest</div>
+                <div class="legend-item"><span class="biome-color grassland"></span> Grassland</div>
+                <div class="legend-item"><span class="biome-color desert"></span> Desert</div>
+                <div class="legend-item"><span class="biome-color mountain"></span> Mountain</div>
+                <div class="legend-item"><span class="biome-color water"></span> Water</div>
+                <div class="legend-item"><span class="biome-color volcanic"></span> Volcanic</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/staticAssets.js"></script>
+    <script src="js/worldGenerator.js"></script>
+    <script src="js/gameData.js"></script>
+    <script src="js/creatures.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/battle.js"></script>
+    <script src="js/worldRenderer.js"></script>
+    <script src="js/gameEngine.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

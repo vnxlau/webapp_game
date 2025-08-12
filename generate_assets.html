@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .asset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .asset-item {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #f9f9f9;
+        }
+        .asset-item canvas {
+            border: 1px solid #ccc;
+            background: white;
+        }
+        .asset-item h4 {
+            margin: 8px 0 4px 0;
+            font-size: 12px;
+        }
+        .download-btn {
+            margin-top: 5px;
+            padding: 4px 8px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 10px;
+        }
+        .download-btn:hover {
+            background: #45a049;
+        }
+        .generate-all {
+            padding: 15px 30px;
+            background: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 0;
+        }
+        .generate-all:hover {
+            background: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Pokemon RPG Asset Generator</h1>
+        <p>Generate cute Ghibli-style creatures and buildings for the game!</p>
+        
+        <button class="generate-all" onclick="generateAllAssets()">🎯 Generate All Assets</button>
+        
+        <div class="section">
+            <h2>🦊 Japanese-Inspired Creatures</h2>
+            <div id="creatures-grid" class="asset-grid"></div>
+        </div>
+        
+        <div class="section">
+            <h2>🏠 Buildings & Structures</h2>
+            <div id="buildings-grid" class="asset-grid"></div>
+        </div>
+    </div>
+
+    <script src="js/assetGenerator.js"></script>
+    <script>
+        const assetGenerator = new AssetGenerator();
+        
+        // Japanese creature data
+        const creatures = [
+            { name: 'Kitsune Sprout', type: 'GRASS', description: 'Young fox spirit' },
+            { name: 'Kitsune Sage', type: 'GRASS', description: 'Ancient fox spirit' },
+            { name: 'Tanuki Pup', type: 'NORMAL', description: 'Playful raccoon dog' },
+            { name: 'Tanuki Trickster', type: 'NORMAL', description: 'Master of illusion' },
+            { name: 'Kodama Spirit', type: 'FAIRY', description: 'Tiny tree spirit' },
+            { name: 'Kodama Guardian', type: 'FAIRY', description: 'Powerful tree spirit' },
+            { name: 'Kappa Warrior', type: 'WATER', description: 'Turtle-like creature' },
+            { name: 'Kappa Master', type: 'WATER', description: 'Legendary water spirit' },
+            { name: 'Oni Child', type: 'DARK', description: 'Young demon' },
+            { name: 'Oni Warrior', type: 'DARK', description: 'Powerful demon warrior' },
+            { name: 'Tengu Chick', type: 'FLYING', description: 'Young crow spirit' },
+            { name: 'Tengu Master', type: 'FLYING', description: 'Master of martial arts' },
+            { name: 'Shiba Inu', type: 'NORMAL', description: 'Loyal brave dog' },
+            { name: 'Nekomata', type: 'PSYCHIC', description: 'Mystical two-tailed cat' },
+            
+            // Additional classic creatures
+            { name: 'Flamewyrm', type: 'FIRE', description: 'Fire dragon' },
+            { name: 'Aquafin', type: 'WATER', description: 'Water creature' },
+            { name: 'Leafsprout', type: 'GRASS', description: 'Grass sprite' },
+            { name: 'Sparkbolt', type: 'ELECTRIC', description: 'Electric creature' },
+            { name: 'Frostcub', type: 'ICE', description: 'Ice bear' },
+            { name: 'Rockshell', type: 'ROCK', description: 'Rock turtle' }
+        ];
+        
+        const buildings = [
+            'house', 'inn', 'shop', 'temple', 'tower', 'windmill', 
+            'lighthouse', 'dojo', 'garden', 'bridge', 'dungeon', 
+            'shrine', 'cave', 'ruins'
+        ];
+        
+        function generateAllAssets() {
+            generateCreatures();
+            generateBuildings();
+        }
+        
+        function generateCreatures() {
+            const grid = document.getElementById('creatures-grid');
+            grid.innerHTML = '';
+            
+            creatures.forEach(creature => {
+                const item = document.createElement('div');
+                item.className = 'asset-item';
+                
+                const canvas = document.createElement('canvas');
+                canvas.width = 64;
+                canvas.height = 64;
+                
+                const title = document.createElement('h4');
+                title.textContent = creature.name;
+                
+                const desc = document.createElement('p');
+                desc.textContent = creature.description;
+                desc.style.fontSize = '10px';
+                desc.style.color = '#666';
+                desc.style.margin = '4px 0';
+                
+                const downloadBtn = document.createElement('button');
+                downloadBtn.className = 'download-btn';
+                downloadBtn.textContent = 'Download PNG';
+                downloadBtn.onclick = () => downloadCanvas(canvas, creature.name.toLowerCase().replace(/\s+/g, '_'));
+                
+                // Generate the sprite
+                try {
+                    const spriteData = assetGenerator.generateCreatureSprite({
+                        name: creature.name,
+                        elementType: creature.type
+                    });
+                    
+                    const ctx = canvas.getContext('2d');
+                    ctx.putImageData(spriteData, 0, 0);
+                } catch (error) {
+                    console.error('Error generating sprite for', creature.name, error);
+                    const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = '#ffcccc';
+                    ctx.fillRect(0, 0, 64, 64);
+                    ctx.fillStyle = '#000';
+                    ctx.font = '10px Arial';
+                    ctx.fillText('Error', 20, 35);
+                }
+                
+                item.appendChild(title);
+                item.appendChild(canvas);
+                item.appendChild(desc);
+                item.appendChild(downloadBtn);
+                grid.appendChild(item);
+            });
+        }
+        
+        function generateBuildings() {
+            const grid = document.getElementById('buildings-grid');
+            grid.innerHTML = '';
+            
+            buildings.forEach(building => {
+                const item = document.createElement('div');
+                item.className = 'asset-item';
+                
+                const canvas = document.createElement('canvas');
+                canvas.width = 64;
+                canvas.height = 64;
+                
+                const title = document.createElement('h4');
+                title.textContent = building.charAt(0).toUpperCase() + building.slice(1);
+                
+                const downloadBtn = document.createElement('button');
+                downloadBtn.className = 'download-btn';
+                downloadBtn.textContent = 'Download PNG';
+                downloadBtn.onclick = () => downloadCanvas(canvas, building);
+                
+                // Generate the sprite
+                try {
+                    const spriteData = assetGenerator.generateBuildingSprite(building);
+                    const ctx = canvas.getContext('2d');
+                    ctx.putImageData(spriteData, 0, 0);
+                } catch (error) {
+                    console.error('Error generating building sprite for', building, error);
+                    const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = '#ffcccc';
+                    ctx.fillRect(0, 0, 64, 64);
+                    ctx.fillStyle = '#000';
+                    ctx.font = '10px Arial';
+                    ctx.fillText('Error', 20, 35);
+                }
+                
+                item.appendChild(title);
+                item.appendChild(canvas);
+                item.appendChild(downloadBtn);
+                grid.appendChild(item);
+            });
+        }
+        
+        function downloadCanvas(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename + '.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+        
+        // Auto-generate on page load
+        window.onload = () => {
+            generateAllAssets();
+        };
+    </script>
+</body>
+</html>

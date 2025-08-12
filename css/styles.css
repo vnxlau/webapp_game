@@ -1,0 +1,425 @@
+/* Game Styles */
+:root {
+    --primary-color: #4A90E2;
+    --secondary-color: #7B68EE;
+    --accent-color: #FFD700;
+    --success-color: #4CAF50;
+    --warning-color: #FF9800;
+    --danger-color: #F44336;
+    --text-primary: #333;
+    --text-secondary: #666;
+    --background-primary: #f0f0f0;
+    --background-secondary: #ffffff;
+}
+
+/* Element type colors */
+:root {
+    --fire-color: #FF6B35;
+    --water-color: #3498DB;
+    --grass-color: #2ECC71;
+    --electric-color: #F1C40F;
+    --ice-color: #85C1E9;
+    --ground-color: #D2691E;
+    --rock-color: #696969;
+    --flying-color: #87CEEB;
+    --poison-color: #8E44AD;
+    --psychic-color: #E91E63;
+    --fighting-color: #CD853F;
+    --normal-color: #95A5A6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333;
+    overflow: hidden;
+}
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/* HUD Styles */
+#hud {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#player-stats h3 {
+    color: #4CAF50;
+    margin-bottom: 5px;
+}
+
+.stat-bar {
+    display: flex;
+    gap: 15px;
+    font-size: 14px;
+}
+
+#world-info {
+    text-align: center;
+}
+
+.location-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#current-biome {
+    font-weight: bold;
+    color: #FFD700;
+    font-size: 16px;
+}
+
+#coordinates {
+    font-size: 12px;
+    color: #CCC;
+}
+
+#creature-team h4 {
+    color: #FF6B6B;
+    margin-bottom: 5px;
+}
+
+#team-display {
+    display: flex;
+    gap: 5px;
+}
+
+.team-creature {
+    width: 30px;
+    height: 30px;
+    background: #4CAF50;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: white;
+    font-weight: bold;
+}
+
+/* Canvas Styles */
+#game-canvas {
+    border: 2px solid #333;
+    border-radius: 10px;
+    background: #87CEEB;
+    flex: 1;
+    max-height: 600px;
+}
+
+/* Controls */
+#controls {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+#movement-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+#movement-controls button {
+    width: 40px;
+    height: 40px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#movement-controls button:hover {
+    background: #45a049;
+}
+
+#movement-controls div {
+    display: flex;
+    gap: 5px;
+}
+
+#action-controls {
+    display: flex;
+    gap: 10px;
+}
+
+#action-controls button {
+    padding: 10px 15px;
+    background: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#action-controls button:hover {
+    background: #1976D2;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal:not(.hidden) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    max-height: 80%;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+}
+
+.close-modal:hover {
+    color: #333;
+}
+
+/* Battle Modal */
+#battle-scene {
+    margin: 20px 0;
+}
+
+.creature-display {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.creature-display > div {
+    width: 45%;
+    text-align: center;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+}
+
+#opponent-creature {
+    background: #ffebee;
+    border-color: #f44336;
+}
+
+#player-creature {
+    background: #e8f5e8;
+    border-color: #4caf50;
+}
+
+.health-bar {
+    width: 100%;
+    height: 10px;
+    background: #ddd;
+    border-radius: 5px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.health-bar > div {
+    height: 100%;
+    background: #4CAF50;
+    transition: width 0.3s ease;
+}
+
+#battle-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#battle-actions button {
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.1s;
+}
+
+#battle-actions button:hover {
+    transform: scale(1.05);
+}
+
+#btn-attack { background: #f44336; color: white; }
+#btn-capture { background: #ff9800; color: white; }
+#btn-switch { background: #2196f3; color: white; }
+#btn-run { background: #9e9e9e; color: white; }
+
+#battle-log {
+    margin-top: 20px;
+    padding: 10px;
+    background: #f5f5f5;
+    border-radius: 5px;
+    max-height: 150px;
+    overflow-y: auto;
+    font-family: monospace;
+}
+
+/* Collection Modal */
+#collection-stats {
+    background: #f0f0f0;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+#creature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.creature-card {
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.creature-card:hover {
+    transform: scale(1.05);
+    border-color: #4CAF50;
+}
+
+.creature-sprite {
+    width: 80px;
+    height: 80px;
+    background: #f0f0f0;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+/* Map Modal */
+#world-map {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+#map-legend {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.biome-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+}
+
+.biome-color.forest { background: #228B22; }
+.biome-color.grassland { background: #9ACD32; }
+.biome-color.desert { background: #F4A460; }
+.biome-color.mountain { background: #8B7355; }
+.biome-color.water { background: #4682B4; }
+.biome-color.volcanic { background: #DC143C; }
+
+/* Element Type Colors */
+.type-fire { color: #FF6B35; }
+.type-water { color: #3498DB; }
+.type-grass { color: #2ECC71; }
+.type-electric { color: #F1C40F; }
+.type-ice { color: #85C1E9; }
+.type-ground { color: #D2691E; }
+.type-rock { color: #696969; }
+.type-flying { color: #87CEEB; }
+.type-poison { color: #8E44AD; }
+.type-psychic { color: #E91E63; }
+.type-fighting { color: #CD853F; }
+.type-normal { color: #95A5A6; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #game-container {
+        padding: 5px;
+    }
+    
+    #hud {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    #game-canvas {
+        width: 100%;
+        height: auto;
+    }
+    
+    #controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .modal-content {
+        margin: 10px;
+        max-width: calc(100% - 20px);
+    }
+}
